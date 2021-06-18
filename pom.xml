@@ -26,22 +26,26 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>com.example</groupId>
-    <artifactId>spark-app</artifactId>
+    <artifactId>spark-skel</artifactId>
     <version>0.0.1-SNAPSHOT</version>
 
     <packaging>jar</packaging>
 	
 	<properties>
-		<encoding>UTF-8</encoding>
+        <maven.compiler.source>1.6</maven.compiler.source>
+        <maven.compiler.target>1.6</maven.compiler.target>
+
+        <encoding>UTF-8</encoding>
         <timestamp>${maven.build.timestamp}</timestamp>
-        <maven.build.timestamp.format>yyyy-MM-dd'T'HH:mm:ssX</maven.build.timestamp.format>		
-		<scala.version>2.11.12</scala.version>
+        <maven.build.timestamp.format>yyyy-MM-dd'T'HH:mm:ssX</maven.build.timestamp.format>
+
+        <scala.version>2.11.12</scala.version>
 		<scala.compat.version>2.11</scala.compat.version>	
-		<scalatest.version>3.0.0</scalatest.version>
-		<spark.version>2.3.0</spark.version>
-		<spark.xml.version>0.4.1</spark.xml.version>
-		<specs.version>2.4.16</specs.version>
-		<mockito.version>1.8.5</mockito.version>
+		<scalatest.version>3.2.9</scalatest.version>
+		<spark.version>2.4.7</spark.version>
+		<spark.xml.version>0.12.0</spark.xml.version>
+		<specs.version>4.10.6</specs.version>
+		<mockito.version>3.11.1</mockito.version>
 	</properties>
 	
 	<dependencies>
@@ -89,7 +93,7 @@
 			<artifactId>spark-xml_${scala.compat.version}</artifactId>
 			<version>${spark.xml.version}</version>
 		</dependency>
-		
+
 		<!-- Libraries -->
 		
 		<!-- Test -->
@@ -105,6 +109,12 @@
 			<version>${scalatest.version}</version>
 			<scope>provided</scope>
 		</dependency>
+        <dependency>
+            <groupId>org.scalatest</groupId>
+            <artifactId>scalatest-funsuite_${scala.compat.version}</artifactId>
+            <version>${scalatest.version}</version>
+            <scope>provided</scope>
+        </dependency>
 		<dependency>
 			<groupId>org.mockito</groupId>
 			<artifactId>mockito-core</artifactId>
@@ -247,7 +257,7 @@
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-shade-plugin</artifactId>
-                    <version>3.1.0</version>
+                    <version>3.2.4</version>
                 </plugin>
                 <plugin>
                     <groupId>org.codehaus.mojo</groupId>
