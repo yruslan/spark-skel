@@ -1,7 +1,7 @@
 package com.example.spark.app
 
 import com.example.spark.app.Models.FootballTeam
-import org.apache.log4j.{Level, Logger}
+import wvlet.log.{LogLevel, LogSupport, Logger}
 import org.apache.spark.sql.{DataFrame, Dataset, SparkSession}
 import org.apache.spark.sql.functions._
 
@@ -17,7 +17,8 @@ import org.apache.spark.sql.functions._
  */
 
 
-object SampleSparkApp {
+
+object SampleSparkApp extends LogSupport {
 
   def generate_dataset(): Unit = {
     val player = FootballTeam("artem", "league")
@@ -25,8 +26,8 @@ object SampleSparkApp {
 
   def main(args: Array[String]): Unit = {
 
-    Logger.getLogger("org").setLevel(Level.WARN)
-    Logger.getLogger("akka").setLevel(Level.WARN)
+    Logger.init
+    Logger.setDefaultLogLevel(LogLevel.WARN)
 
     generate_dataset()
 
