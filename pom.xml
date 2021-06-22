@@ -46,7 +46,7 @@
 		<spark.xml.version>0.12.0</spark.xml.version>
 		<specs.version>4.10.6</specs.version>
 		<mockito.version>3.11.1</mockito.version>
-        <airframe.version>21.6.0</airframe.version>
+        <airframe.version>20.10.3</airframe.version>
 	</properties>
 	
 	<dependencies>
@@ -100,7 +100,7 @@
         <!-- Logging -->
         <dependency>
             <groupId>org.wvlet.airframe</groupId>
-            <artifactId>airframe-log_2.12</artifactId>
+            <artifactId>airframe-log_2.11</artifactId>
             <version>${airframe.version}</version>
         </dependency>
 
