@@ -1,30 +1,50 @@
-# Spark Job skeleton project
+# Spark S3 example application
 
-This is an example Apache Spark Job that can be used for creating other Spark projects. It includes all dependencies to run the job locally and on cluster.
+The purpose of this project is to provide
+- An example of a Spark application that can access S3
+- Best practices for authenticating to AWS from Spark
+- The documentation on how Spark can be ran in local mode without `spark-submit`
+- An uber jar that can be used to run other Spark applications locally that use S3
+- Necessary classes to use `magic` committer with Parquet.
 
-The project generates source and javadoc jars so it can be used for creating Spark library projects as well.
+## Usage
 
-## Usage 
 
-The example application is in `com.example.spark.SampleSparkApp` object.
+### To run the example application
 
-**To run this locally use**
+To run the application, 
+- If you want to explicitly specify AWS credentials, create `application.conf` and add it there.
+  Use `reference.conf` from the resources as an example.
+- Run the Spark application locally:
+
 ```sh
-mvn test
+java -cp spark-s3-0.0.1-SNAPSHOT.jar \
+  com.example.spark.s3.app.SparkS3App
 ```
-or change Scala and Spark dependencies from `provided` to `compile`.
 
-**To run this on cluster generate the uber jar by running**
+### To run a custom SPark application in local mode with S3 support
+When running custom Spark application using the uber jar generated from this example keep in mind that
+`log4j.properties` need to be either explicitly provided or be included in the jar file of the custom Spark app.
+Also, the version of Spark and Scala of the uber jar should be the same as of the custom Spark app.
+
+- Copy `log4j.properties` from the resources folder to the current directory
+- If you want to explicitly specify AWS credentials, create `application.conf` and add it there.
+  Use `reference.conf` from the resources as an example.
+- Run the Spark application locally:
+
+```sh
+java -Dlog4j.configuration=file:"log4j.properties" \
+  -cp spark-s3-0.0.1-SNAPSHOT.jar:myspark-app.jar \
+  com.example.spark.s3.app.SparkS3App
 ```
-mvn package
+
+## Build
+
+**To run this locally use an IDE**
+
+**To build an uber jar**
 ```
-and use `spark-submit` on cluster.
+mvn clean package
+```
 
-### Troubleshooting
-If you try to run the example from an IDE you'll likely get the following exception: 
-
-```Exception in thread "main" java.lang.NoClassDefFoundError: scala/collection/Seq```
-
-This is because the jar is created with all Scala and Spark dependencies removed (using shade plugin). This is done so that the uber jar for `spark-submit` is not too big.
-
-To run the job from an IDE use `SampleSparkAppRunner` test. When running tests all provided dependencies will be loaded.
+## Building an uber jar to enable running in the local mode with S3 support
