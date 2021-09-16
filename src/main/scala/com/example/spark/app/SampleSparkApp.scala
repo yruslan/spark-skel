@@ -1,5 +1,6 @@
 package com.example.spark.app
 
+import com.typesafe.config.ConfigFactory
 import org.apache.log4j.{Level, Logger}
 import org.apache.spark.sql.SparkSession
 import org.apache.spark.sql.functions._
@@ -17,6 +18,11 @@ import org.apache.spark.sql.functions._
 object SampleSparkApp {
 
   def main(args: Array[String]): Unit = {
+    val config = ConfigFactory.load()
+    val logger = Logger.getLogger(this.getClass)
+
+    val applicationVersion = config.getString("application.version")
+    val buildTimestamp = config.getString("build.timestamp")
 
     Logger.getLogger("org").setLevel(Level.WARN)
     Logger.getLogger("akka").setLevel(Level.WARN)
@@ -25,9 +31,15 @@ object SampleSparkApp {
       .builder()
       .appName("Example SparkApplication")
       .master("local[*]")
+      .config("spark.ui.enabled", "false")
+      .config("spark.driver.bindAddress","127.0.0.1")
+      .config("spark.driver.host", "127.0.0.1")
+      .config("spark.sql.session.timeZone", "Etc/UTC")
       .getOrCreate()
 
     import spark.implicits._
+
+    logger.info(s"Application version: $applicationVersion (built $buildTimestamp)")
 
     // An example spark application. Calculate Long.MaxValue + 100 as a big decimal.
     val v = spark

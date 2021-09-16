@@ -1,6 +1,6 @@
 package com.example.spark.app
 
-import com.example.spark.testUtils.{SparkJobRunHelper, SparkLocalMaster}
+import com.example.spark.testutils.{SparkJobRunHelper, SparkLocalMaster}
 import org.scalatest.funsuite.AnyFunSuite
 
 class SampleSparkAppRunner extends AnyFunSuite

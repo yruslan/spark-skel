@@ -1,4 +1,4 @@
-package com.example.spark.testUtils
+package com.example.spark.testutils
 
 trait SparkLocalMaster {
   System.getProperties.setProperty("spark.master", "local[*]")

@@ -1,4 +1,4 @@
-package com.example.spark.testUtils
+package com.example.spark.testutils
 
 import org.scalatest.funsuite.AnyFunSuiteLike
 
